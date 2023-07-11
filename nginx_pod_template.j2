@@ -1,0 +1,40 @@
+{% set name=name or "nginx" %}
+{% set port=port or 80 %}
+
+apiVersion: v1      # apiVersion: this is the version of the API used by the cluster.
+kind: {{kind | default("Pod")}}
+metadata:           # Metadata: here we can define data about the object we are about to create.
+  name: {{name}}
+  namespace: {{webserver_namespace}}
+  labels:
+    app: {{name}}
+spec:
+{% if kind == "Pod" %}
+{% if nodeName %}
+  nodeName: {{nodeName}}
+{% endif %}
+  containers:
+  - name: webserver  # The name that this container will have.
+    image: nginx:latest # The image on which it is based.
+    ports:
+    - name: nginx    # The port(s) that will be open.
+      containerPort: {{port}}
+    # - protocol: {{protocol | default("TCP")}}
+    livenessProbe:
+      httpGet:
+        path: /
+        port: {{port}}
+      failureThreshold: 1
+      periodSeconds: 30
+    name: {{name}}
+{% elif kind == "Service" %}
+  selector:
+    app: {{name}}
+    # run: {{name}}
+  ports:
+  - port: {{port}}
+    # protocol: {{protocol | default("TCP")}}
+    targetPort: {{port}}
+    # name: nginx-service-port
+  type: {{type |default("NodePort")}}
+{% endif %}

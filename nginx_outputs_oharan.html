@@ -1,0 +1,190 @@
+<pre>oriharan@fedora GITLAB-managed-services-integration-tests]$ poetry run pytest -m nginx
+<b>============================================================================ test session starts ============================================================================</b>
+platform linux -- Python 3.10.9, pytest-7.2.1, pluggy-1.0.0
+rootdir: /home/oriharan/GITLAB-managed-services-integration-tests, configfile: pytest.ini, testpaths: tests
+plugins: testconfig-0.2.0, progress-1.2.2
+<b>collected 19 items / 12 deselected / 7 selected                                                                                                                             </b>
+
+tests/nginx_pod/test_nginx.py
+---------------------------------------------------------------------- test_namespace[tests/nginx_pod] ----------------------------------------------------------------------
+----------------------------------------------------------------------------------- SETUP -----------------------------------------------------------------------------------
+2023-02-27T02:10:27.714154 conftest <font color="#26A269">INFO</font> Running tests for nginx pod. Activating setup for resources:
+
+2023-02-27T02:10:27.714536 conftest <font color="#26A269">INFO</font> Environment user name: oriharan
+2023-02-27T02:10:27.714838 conftest <font color="#26A269">INFO</font> Creating namespace for - webserver-oriharan
+2023-02-27T02:10:27.715204 ocp_resources Namespace <font color="#26A269">INFO</font> Create Namespace webserver-oriharan
+2023-02-27T02:10:27.715285 ocp_resources Namespace <font color="#26A269">INFO</font> Posting {&apos;apiVersion&apos;: &apos;v1&apos;, &apos;kind&apos;: &apos;Namespace&apos;, &apos;metadata&apos;: {&apos;name&apos;: &apos;webserver-oriharan&apos;, &apos;labels&apos;: {&apos;created-by-dynamic-class-creator&apos;: &apos;Yes&apos;}}}
+2023-02-27T02:10:27.762793 ocp_resources Namespace <font color="#26A269">INFO</font> Wait for Namespace webserver-oriharan status to be Active
+2023-02-27T02:10:27.763204 ocp_resources.utils <font color="#26A269">INFO</font> Waiting for 240 seconds, retry every 1 seconds. (Function: kubernetes.dynamic.client.get Kwargs: {&apos;field_selector&apos;: &apos;metadata.name==webserver-oriharan&apos;, &apos;namespace&apos;: None})
+2023-02-27T02:10:27.789083 ocp_resources.utils <font color="#26A269">INFO</font> Elapsed time: 0.00015473365783691406
+2023-02-27T02:10:27.803351 ocp_resources Pod <font color="#26A269">INFO</font> Create Pod nginx
+2023-02-27T02:10:27.803563 ocp_resources Pod <font color="#26A269">INFO</font> Posting {&apos;apiVersion&apos;: &apos;v1&apos;, &apos;kind&apos;: &apos;Pod&apos;, &apos;metadata&apos;: {&apos;name&apos;: &apos;nginx&apos;, &apos;namespace&apos;: &apos;webserver-oriharan&apos;, &apos;labels&apos;: {&apos;app&apos;: &apos;nginx&apos;, &apos;created-by-dynamic-class-creator&apos;: &apos;Yes&apos;}}, &apos;spec&apos;: {&apos;containers&apos;: [{&apos;name&apos;: &apos;nginx&apos;, &apos;image&apos;: &apos;nginx:latest&apos;, &apos;ports&apos;: [{&apos;name&apos;: &apos;nginx&apos;, &apos;containerPort&apos;: 80}], &apos;livenessProbe&apos;: {&apos;httpGet&apos;: {&apos;path&apos;: &apos;/&apos;, &apos;port&apos;: 80}, &apos;failureThreshold&apos;: 1, &apos;periodSeconds&apos;: 30}}]}}
+2023-02-27T02:10:27.904298 ocp_resources Pod <font color="#26A269">INFO</font> Wait for Pod nginx status to be Running
+2023-02-27T02:10:27.904721 ocp_resources.utils <font color="#26A269">INFO</font> Waiting for 240 seconds, retry every 1 seconds. (Function: kubernetes.dynamic.client.get Kwargs: {&apos;field_selector&apos;: &apos;metadata.name==nginx&apos;, &apos;namespace&apos;: &apos;webserver-oriharan&apos;})
+2023-02-27T02:10:39.965354 ocp_resources.utils <font color="#26A269">INFO</font> Elapsed time: 12.050094842910767
+----------------------------------------------------------------------------------- CALL -----------------------------------------------------------------------------------
+2023-02-27T02:10:39.966233 ocp_resources Namespace <font color="#26A269">INFO</font> Get Namespace webserver-oriharan status
+
+TEST: test_namespace[tests/nginx_pod] STATUS: <font color="#26A269">PASSED</font>
+<font color="#26A269">.</font>--------------------------------------------------------------------------------- TEARDOWN ---------------------------------------------------------------------------------
+
+_______________________________________________ 1 of 7 completed, 1 Pass, 0 Fail, 0 Skip, 0 XPass, 0 XFail, 0 Error, 0 ReRun ________________________________________________
+
+tests/nginx_pod/test_nginx.py
+--------------------------------------------------------------------- test_pod_status[tests/nginx_pod] ---------------------------------------------------------------------
+----------------------------------------------------------------------------------- SETUP -----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------- CALL -----------------------------------------------------------------------------------
+2023-02-27T02:10:39.983312 ocp_utilities.infra <font color="#26A269">INFO</font> Verify all pods are not failed nor pending.
+2023-02-27T02:10:39.988319 ocp_resources Pod <font color="#26A269">INFO</font> Get Pod nginx status
+2023-02-27T02:10:39.990961 test_nginx <font color="#26A269">INFO</font> Pod status: Running
+
+TEST: test_pod_status[tests/nginx_pod] STATUS: <font color="#26A269">PASSED</font>
+<font color="#26A269">.</font>--------------------------------------------------------------------------------- TEARDOWN ---------------------------------------------------------------------------------
+
+_______________________________________________ 2 of 7 completed, 2 Pass, 0 Fail, 0 Skip, 0 XPass, 0 XFail, 0 Error, 0 ReRun ________________________________________________
+
+tests/nginx_pod/test_nginx.py
+---------------------------------------------------------------------- test_pod_logs[tests/nginx_pod] ----------------------------------------------------------------------
+----------------------------------------------------------------------------------- SETUP -----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------- CALL -----------------------------------------------------------------------------------
+2023-02-27T02:10:40.007453 test_nginx <font color="#26A269">INFO</font> -----Pod Logs:
+/docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+/docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+10-listen-on-ipv6-by-default.sh: info: Enabled listen on IPv6 in /etc/nginx/conf.d/default.conf
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+/docker-entrypoint.sh: Configuration complete; ready for start up
+2023/02/27 00:10:39 [notice] 1#1: using the &quot;epoll&quot; event method
+2023/02/27 00:10:39 [notice] 1#1: nginx/1.23.3
+2023/02/27 00:10:39 [notice] 1#1: built by gcc 10.2.1 20210110 (Debian 10.2.1-6)
+2023/02/27 00:10:39 [notice] 1#1: OS: Linux 4.18.0-372.40.1.el8_6.x86_64
+2023/02/27 00:10:39 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2023/02/27 00:10:39 [notice] 1#1: start worker processes
+2023/02/27 00:10:39 [notice] 1#1: start worker process 29
+2023/02/27 00:10:39 [notice] 1#1: start worker process 30
+2023/02/27 00:10:39 [notice] 1#1: start worker process 31
+2023/02/27 00:10:39 [notice] 1#1: start worker process 32
+
+
+TEST: test_pod_logs[tests/nginx_pod] STATUS: <font color="#26A269">PASSED</font>
+<font color="#26A269">.</font>--------------------------------------------------------------------------------- TEARDOWN ---------------------------------------------------------------------------------
+
+_______________________________________________ 3 of 7 completed, 3 Pass, 0 Fail, 0 Skip, 0 XPass, 0 XFail, 0 Error, 0 ReRun ________________________________________________
+
+tests/nginx_pod/test_nginx.py
+------------------------------------------------------------ test_nginx_service[tests/nginx_pod-nginx_service0] ------------------------------------------------------------
+----------------------------------------------------------------------------------- SETUP -----------------------------------------------------------------------------------
+2023-02-27T02:10:40.009098 conftest <font color="#26A269">INFO</font> Executing service with parameters: (&apos;NodePort&apos;, &apos;tests/nginx_pod&apos;)
+2023-02-27T02:10:40.014903 ocp_resources Service <font color="#26A269">INFO</font> Create Service nginx
+2023-02-27T02:10:40.015018 ocp_resources Service <font color="#26A269">INFO</font> Posting {&apos;apiVersion&apos;: &apos;v1&apos;, &apos;kind&apos;: &apos;Service&apos;, &apos;metadata&apos;: {&apos;name&apos;: &apos;nginx&apos;, &apos;namespace&apos;: &apos;webserver-oriharan&apos;, &apos;labels&apos;: {&apos;app&apos;: &apos;nginx&apos;, &apos;created-by-dynamic-class-creator&apos;: &apos;Yes&apos;}}, &apos;spec&apos;: {&apos;selector&apos;: {&apos;app&apos;: &apos;nginx&apos;}, &apos;ports&apos;: [{&apos;port&apos;: 80, &apos;targetPort&apos;: 80}], &apos;type&apos;: &apos;NodePort&apos;}}
+----------------------------------------------------------------------------------- CALL -----------------------------------------------------------------------------------
+2023-02-27T02:10:40.083923 test_nginx <font color="#26A269">INFO</font> Created service for nginx pod with port named nginx-service-port, service type: NodePort, using [&apos;IPv4&apos;]
+
+TEST: test_nginx_service[tests/nginx_pod-nginx_service0] STATUS: <font color="#26A269">PASSED</font>
+<font color="#26A269">.</font>--------------------------------------------------------------------------------- TEARDOWN ---------------------------------------------------------------------------------
+
+_______________________________________________ 4 of 7 completed, 4 Pass, 0 Fail, 0 Skip, 0 XPass, 0 XFail, 0 Error, 0 ReRun ________________________________________________
+
+tests/nginx_pod/test_nginx.py
+------------------------------------------------------------- test_nginx_route[tests/nginx_pod-nginx_service0] -------------------------------------------------------------
+----------------------------------------------------------------------------------- SETUP -----------------------------------------------------------------------------------
+2023-02-27T02:10:40.086822 ocp_resources.resource <font color="#26A269">INFO</font> kind: Route api version: route.openshift.io/v1
+2023-02-27T02:10:40.087014 ocp_resources Route <font color="#26A269">INFO</font> Create Route nginx-route
+2023-02-27T02:10:40.087119 ocp_resources Route <font color="#26A269">INFO</font> Posting {&apos;apiVersion&apos;: &apos;route.openshift.io/v1&apos;, &apos;kind&apos;: &apos;Route&apos;, &apos;metadata&apos;: {&apos;name&apos;: &apos;nginx-route&apos;, &apos;namespace&apos;: &apos;webserver-oriharan&apos;, &apos;labels&apos;: {&apos;created-by-dynamic-class-creator&apos;: &apos;Yes&apos;}}, &apos;spec&apos;: {&apos;to&apos;: {&apos;kind&apos;: &apos;Service&apos;, &apos;name&apos;: &apos;nginx&apos;}}}
+----------------------------------------------------------------------------------- CALL -----------------------------------------------------------------------------------
+2023-02-27T02:10:40.135291 test_nginx <font color="#26A269">INFO</font> Route nginx-route (ocp_resources Resource object) is exposing service on host nginx-route-webserver-oriharan.apps-crc.testing
+
+TEST: test_nginx_route[tests/nginx_pod-nginx_service0] STATUS: <font color="#26A269">PASSED</font>
+<font color="#26A269">.</font>--------------------------------------------------------------------------------- TEARDOWN ---------------------------------------------------------------------------------
+
+_______________________________________________ 5 of 7 completed, 5 Pass, 0 Fail, 0 Skip, 0 XPass, 0 XFail, 0 Error, 0 ReRun ________________________________________________
+
+tests/nginx_pod/test_nginx.py
+------------------------------------------------------------- test_get_request[tests/nginx_pod-nginx_service0] -------------------------------------------------------------
+----------------------------------------------------------------------------------- SETUP -----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------- CALL -----------------------------------------------------------------------------------
+
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; PDB set_trace &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+&gt; /home/oriharan/GITLAB-managed-services-integration-tests/tests/nginx_pod/test_nginx.py(76)test_get_request()
+-&gt; LOGGER.info(f&quot;Using GET request in : \n{url}&quot;)
+(Pdb) c
+
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; PDB continue &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+2023-02-27T02:10:57.083457 test_nginx <font color="#26A269">INFO</font> Using GET request in :
+http://nginx-route-webserver-oriharan.apps-crc.testing:80
+2023-02-27T02:10:57.090848 test_nginx <font color="#26A269">INFO</font> Success - result returned &lt;Response [200]&gt;
+
+TEST: test_get_request[tests/nginx_pod-nginx_service0] STATUS: <font color="#26A269">PASSED</font>
+<font color="#26A269">.</font>--------------------------------------------------------------------------------- TEARDOWN ---------------------------------------------------------------------------------
+
+_______________________________________________ 6 of 7 completed, 6 Pass, 0 Fail, 0 Skip, 0 XPass, 0 XFail, 0 Error, 0 ReRun ________________________________________________
+
+tests/nginx_pod/test_nginx.py
+--------------------------------------------------------------- test_core_v1_api_get_request[tests/nginx_pod] ---------------------------------------------------------------
+----------------------------------------------------------------------------------- SETUP -----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------- CALL -----------------------------------------------------------------------------------
+2023-02-27T02:10:57.103602 test_nginx <font color="#26A269">INFO</font> Check connect_get_namespaced_pod_proxy:
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Welcome to nginx!&lt;/title&gt;
+&lt;style&gt;
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Welcome to nginx!&lt;/h1&gt;
+&lt;p&gt;If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.&lt;/p&gt;
+
+&lt;p&gt;For online documentation and support please refer to
+&lt;a href=&quot;http://nginx.org/&quot;&gt;nginx.org&lt;/a&gt;.&lt;br/&gt;
+Commercial support is available at
+&lt;a href=&quot;http://nginx.com/&quot;&gt;nginx.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Thank you for using nginx.&lt;/em&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+
+TEST: test_core_v1_api_get_request[tests/nginx_pod] STATUS: <font color="#26A269">PASSED</font>
+<font color="#26A269">.</font>--------------------------------------------------------------------------------- TEARDOWN ---------------------------------------------------------------------------------
+2023-02-27T02:10:57.104666 ocp_resources Pod <font color="#26A269">INFO</font> Delete Pod nginx
+2023-02-27T02:10:57.112502 ocp_resources Pod <font color="#26A269">INFO</font> Deleting {&apos;kind&apos;: &apos;Pod&apos;, &apos;apiVersion&apos;: &apos;v1&apos;, &apos;metadata&apos;: {&apos;name&apos;: &apos;nginx&apos;, &apos;namespace&apos;: &apos;webserver-oriharan&apos;, &apos;uid&apos;: &apos;11a23f1a-961c-4d1f-96f9-d07a28e50c1d&apos;, &apos;resourceVersion&apos;: &apos;629878&apos;, &apos;creationTimestamp&apos;: &apos;2023-02-27T00:10:27Z&apos;, &apos;labels&apos;: {&apos;app&apos;: &apos;nginx&apos;, &apos;created-by-dynamic-class-creator&apos;: &apos;Yes&apos;}, &apos;annotations&apos;: {&apos;k8s.v1.cni.cncf.io/network-status&apos;: &apos;[{\n    &quot;name&quot;: &quot;openshift-sdn&quot;,\n    &quot;interface&quot;: &quot;eth0&quot;,\n    &quot;ips&quot;: [\n        &quot;10.217.0.163&quot;\n    ],\n    &quot;default&quot;: true,\n    &quot;dns&quot;: {}\n}]&apos;, &apos;k8s.v1.cni.cncf.io/networks-status&apos;: &apos;[{\n    &quot;name&quot;: &quot;openshift-sdn&quot;,\n    &quot;interface&quot;: &quot;eth0&quot;,\n    &quot;ips&quot;: [\n        &quot;10.217.0.163&quot;\n    ],\n    &quot;default&quot;: true,\n    &quot;dns&quot;: {}\n}]&apos;, &apos;openshift.io/scc&apos;: &apos;anyuid&apos;}, &apos;managedFields&apos;: [{&apos;manager&apos;: &apos;OpenAPI-Generator&apos;, &apos;operation&apos;: &apos;Update&apos;, &apos;apiVersion&apos;: &apos;v1&apos;, &apos;time&apos;: &apos;2023-02-27T00:10:27Z&apos;, &apos;fieldsType&apos;: &apos;FieldsV1&apos;, &apos;fieldsV1&apos;: {&apos;f:metadata&apos;: {&apos;f:labels&apos;: {&apos;.&apos;: {}, &apos;f:app&apos;: {}, &apos;f:created-by-dynamic-class-creator&apos;: {}}}, &apos;f:spec&apos;: {&apos;f:containers&apos;: {&apos;k:{&quot;name&quot;:&quot;nginx&quot;}&apos;: {&apos;.&apos;: {}, &apos;f:image&apos;: {}, &apos;f:imagePullPolicy&apos;: {}, &apos;f:livenessProbe&apos;: {&apos;.&apos;: {}, &apos;f:failureThreshold&apos;: {}, &apos;f:httpGet&apos;: {&apos;.&apos;: {}, &apos;f:path&apos;: {}, &apos;f:port&apos;: {}, &apos;f:scheme&apos;: {}}, &apos;f:periodSeconds&apos;: {}, &apos;f:successThreshold&apos;: {}, &apos;f:timeoutSeconds&apos;: {}}, &apos;f:name&apos;: {}, &apos;f:ports&apos;: {&apos;.&apos;: {}, &apos;k:{&quot;containerPort&quot;:80,&quot;protocol&quot;:&quot;TCP&quot;}&apos;: {&apos;.&apos;: {}, &apos;f:containerPort&apos;: {}, &apos;f:name&apos;: {}, &apos;f:protocol&apos;: {}}}, &apos;f:resources&apos;: {}, &apos;f:terminationMessagePath&apos;: {}, &apos;f:terminationMessagePolicy&apos;: {}}}, &apos;f:dnsPolicy&apos;: {}, &apos;f:enableServiceLinks&apos;: {}, &apos;f:restartPolicy&apos;: {}, &apos;f:schedulerName&apos;: {}, &apos;f:securityContext&apos;: {}, &apos;f:terminationGracePeriodSeconds&apos;: {}}}}, {&apos;manager&apos;: &apos;multus&apos;, &apos;operation&apos;: &apos;Update&apos;, &apos;apiVersion&apos;: &apos;v1&apos;, &apos;time&apos;: &apos;2023-02-27T00:10:30Z&apos;, &apos;fieldsType&apos;: &apos;FieldsV1&apos;, &apos;fieldsV1&apos;: {&apos;f:metadata&apos;: {&apos;f:annotations&apos;: {&apos;f:k8s.v1.cni.cncf.io/network-status&apos;: {}, &apos;f:k8s.v1.cni.cncf.io/networks-status&apos;: {}}}}, &apos;subresource&apos;: &apos;status&apos;}, {&apos;manager&apos;: &apos;kubelet&apos;, &apos;operation&apos;: &apos;Update&apos;, &apos;apiVersion&apos;: &apos;v1&apos;, &apos;time&apos;: &apos;2023-02-27T00:10:39Z&apos;, &apos;fieldsType&apos;: &apos;FieldsV1&apos;, &apos;fieldsV1&apos;: {&apos;f:status&apos;: {&apos;f:conditions&apos;: {&apos;k:{&quot;type&quot;:&quot;ContainersReady&quot;}&apos;: {&apos;.&apos;: {}, &apos;f:lastProbeTime&apos;: {}, &apos;f:lastTransitionTime&apos;: {}, &apos;f:status&apos;: {}, &apos;f:type&apos;: {}}, &apos;k:{&quot;type&quot;:&quot;Initialized&quot;}&apos;: {&apos;.&apos;: {}, &apos;f:lastProbeTime&apos;: {}, &apos;f:lastTransitionTime&apos;: {}, &apos;f:status&apos;: {}, &apos;f:type&apos;: {}}, &apos;k:{&quot;type&quot;:&quot;Ready&quot;}&apos;: {&apos;.&apos;: {}, &apos;f:lastProbeTime&apos;: {}, &apos;f:lastTransitionTime&apos;: {}, &apos;f:status&apos;: {}, &apos;f:type&apos;: {}}}, &apos;f:containerStatuses&apos;: {}, &apos;f:hostIP&apos;: {}, &apos;f:phase&apos;: {}, &apos;f:podIP&apos;: {}, &apos;f:podIPs&apos;: {&apos;.&apos;: {}, &apos;k:{&quot;ip&quot;:&quot;10.217.0.163&quot;}&apos;: {&apos;.&apos;: {}, &apos;f:ip&apos;: {}}}, &apos;f:startTime&apos;: {}}}, &apos;subresource&apos;: &apos;status&apos;}]}, &apos;spec&apos;: {&apos;volumes&apos;: [{&apos;name&apos;: &apos;kube-api-access-jwj7g&apos;, &apos;projected&apos;: {&apos;sources&apos;: [{&apos;serviceAccountToken&apos;: {&apos;expirationSeconds&apos;: 3607, &apos;path&apos;: &apos;token&apos;}}, {&apos;configMap&apos;: {&apos;name&apos;: &apos;kube-root-ca.crt&apos;, &apos;items&apos;: [{&apos;key&apos;: &apos;ca.crt&apos;, &apos;path&apos;: &apos;ca.crt&apos;}]}}, {&apos;downwardAPI&apos;: {&apos;items&apos;: [{&apos;path&apos;: &apos;namespace&apos;, &apos;fieldRef&apos;: {&apos;apiVersion&apos;: &apos;v1&apos;, &apos;fieldPath&apos;: &apos;metadata.namespace&apos;}}]}}, {&apos;configMap&apos;: {&apos;name&apos;: &apos;openshift-service-ca.crt&apos;, &apos;items&apos;: [{&apos;key&apos;: &apos;service-ca.crt&apos;, &apos;path&apos;: &apos;service-ca.crt&apos;}]}}], &apos;defaultMode&apos;: 420}}], &apos;containers&apos;: [{&apos;name&apos;: &apos;nginx&apos;, &apos;image&apos;: &apos;nginx:latest&apos;, &apos;ports&apos;: [{&apos;name&apos;: &apos;nginx&apos;, &apos;containerPort&apos;: 80, &apos;protocol&apos;: &apos;TCP&apos;}], &apos;resources&apos;: {}, &apos;volumeMounts&apos;: [{&apos;name&apos;: &apos;kube-api-access-jwj7g&apos;, &apos;readOnly&apos;: True, &apos;mountPath&apos;: &apos;/var/run/secrets/kubernetes.io/serviceaccount&apos;}], &apos;livenessProbe&apos;: {&apos;httpGet&apos;: {&apos;path&apos;: &apos;/&apos;, &apos;port&apos;: 80, &apos;scheme&apos;: &apos;HTTP&apos;}, &apos;timeoutSeconds&apos;: 1, &apos;periodSeconds&apos;: 30, &apos;successThreshold&apos;: 1, &apos;failureThreshold&apos;: 1}, &apos;terminationMessagePath&apos;: &apos;/dev/termination-log&apos;, &apos;terminationMessagePolicy&apos;: &apos;File&apos;, &apos;imagePullPolicy&apos;: &apos;Always&apos;, &apos;securityContext&apos;: {&apos;capabilities&apos;: {&apos;drop&apos;: [&apos;MKNOD&apos;]}}}], &apos;restartPolicy&apos;: &apos;Always&apos;, &apos;terminationGracePeriodSeconds&apos;: 30, &apos;dnsPolicy&apos;: &apos;ClusterFirst&apos;, &apos;serviceAccountName&apos;: &apos;default&apos;, &apos;serviceAccount&apos;: &apos;default&apos;, &apos;nodeName&apos;: &apos;crc-chf7b-master-0&apos;, &apos;securityContext&apos;: {&apos;seLinuxOptions&apos;: {&apos;level&apos;: &apos;s0:c27,c24&apos;}}, &apos;schedulerName&apos;: &apos;default-scheduler&apos;, &apos;tolerations&apos;: [{&apos;key&apos;: &apos;node.kubernetes.io/not-ready&apos;, &apos;operator&apos;: &apos;Exists&apos;, &apos;effect&apos;: &apos;NoExecute&apos;, &apos;tolerationSeconds&apos;: 300}, {&apos;key&apos;: &apos;node.kubernetes.io/unreachable&apos;, &apos;operator&apos;: &apos;Exists&apos;, &apos;effect&apos;: &apos;NoExecute&apos;, &apos;tolerationSeconds&apos;: 300}], &apos;priority&apos;: 0, &apos;enableServiceLinks&apos;: True, &apos;preemptionPolicy&apos;: &apos;PreemptLowerPriority&apos;}, &apos;status&apos;: {&apos;phase&apos;: &apos;Running&apos;, &apos;conditions&apos;: [{&apos;type&apos;: &apos;Initialized&apos;, &apos;status&apos;: &apos;True&apos;, &apos;lastProbeTime&apos;: None, &apos;lastTransitionTime&apos;: &apos;2023-02-27T00:10:27Z&apos;}, {&apos;type&apos;: &apos;Ready&apos;, &apos;status&apos;: &apos;True&apos;, &apos;lastProbeTime&apos;: None, &apos;lastTransitionTime&apos;: &apos;2023-02-27T00:10:39Z&apos;}, {&apos;type&apos;: &apos;ContainersReady&apos;, &apos;status&apos;: &apos;True&apos;, &apos;lastProbeTime&apos;: None, &apos;lastTransitionTime&apos;: &apos;2023-02-27T00:10:39Z&apos;}, {&apos;type&apos;: &apos;PodScheduled&apos;, &apos;status&apos;: &apos;True&apos;, &apos;lastProbeTime&apos;: None, &apos;lastTransitionTime&apos;: &apos;2023-02-27T00:10:27Z&apos;}], &apos;hostIP&apos;: &apos;192.168.126.11&apos;, &apos;podIP&apos;: &apos;10.217.0.163&apos;, &apos;podIPs&apos;: [{&apos;ip&apos;: &apos;10.217.0.163&apos;}], &apos;startTime&apos;: &apos;2023-02-27T00:10:27Z&apos;, &apos;containerStatuses&apos;: [{&apos;name&apos;: &apos;nginx&apos;, &apos;state&apos;: {&apos;running&apos;: {&apos;startedAt&apos;: &apos;2023-02-27T00:10:38Z&apos;}}, &apos;lastState&apos;: {}, &apos;ready&apos;: True, &apos;restartCount&apos;: 0, &apos;image&apos;: &apos;docker.io/library/nginx:latest&apos;, &apos;imageID&apos;: &apos;docker.io/library/nginx@sha256:6650513efd1d27c1f8a5351cbd33edf85cc7e0d9d0fcb4ffb23d8fa89b601ba8&apos;, &apos;containerID&apos;: &apos;cri-o://05debea694e164e677c660b01e35c99c89be7b6608e12a2114184355df1d184e&apos;, &apos;started&apos;: True}], &apos;qosClass&apos;: &apos;BestEffort&apos;}}
+2023-02-27T02:10:57.144485 ocp_resources Pod <font color="#26A269">INFO</font> Wait until Pod nginx is deleted
+2023-02-27T02:10:57.144652 ocp_resources.utils <font color="#26A269">INFO</font> Waiting for 240 seconds, retry every 1 seconds. (Function: ocp_resources.resource.client_wait_deleted.lambda: self.exists)
+2023-02-27T02:10:59.156106 ocp_resources.utils <font color="#26A269">INFO</font> Elapsed time: 2.0082030296325684
+2023-02-27T02:10:59.156475 ocp_resources Namespace <font color="#26A269">INFO</font> Delete Namespace webserver-oriharan
+2023-02-27T02:10:59.161234 ocp_resources Namespace <font color="#26A269">INFO</font> Deleting {&apos;kind&apos;: &apos;Namespace&apos;, &apos;apiVersion&apos;: &apos;v1&apos;, &apos;metadata&apos;: {&apos;name&apos;: &apos;webserver-oriharan&apos;, &apos;uid&apos;: &apos;d95a7015-7d86-4edd-90eb-ffcd2fee9487&apos;, &apos;resourceVersion&apos;: &apos;629814&apos;, &apos;creationTimestamp&apos;: &apos;2023-02-27T00:10:27Z&apos;, &apos;labels&apos;: {&apos;created-by-dynamic-class-creator&apos;: &apos;Yes&apos;, &apos;kubernetes.io/metadata.name&apos;: &apos;webserver-oriharan&apos;, &apos;pod-security.kubernetes.io/audit&apos;: &apos;restricted&apos;, &apos;pod-security.kubernetes.io/audit-version&apos;: &apos;v1.24&apos;, &apos;pod-security.kubernetes.io/warn&apos;: &apos;restricted&apos;, &apos;pod-security.kubernetes.io/warn-version&apos;: &apos;v1.24&apos;}, &apos;annotations&apos;: {&apos;openshift.io/sa.scc.mcs&apos;: &apos;s0:c27,c24&apos;, &apos;openshift.io/sa.scc.supplemental-groups&apos;: &apos;1000750000/10000&apos;, &apos;openshift.io/sa.scc.uid-range&apos;: &apos;1000750000/10000&apos;}, &apos;managedFields&apos;: [{&apos;manager&apos;: &apos;OpenAPI-Generator&apos;, &apos;operation&apos;: &apos;Update&apos;, &apos;apiVersion&apos;: &apos;v1&apos;, &apos;time&apos;: &apos;2023-02-27T00:10:27Z&apos;, &apos;fieldsType&apos;: &apos;FieldsV1&apos;, &apos;fieldsV1&apos;: {&apos;f:metadata&apos;: {&apos;f:labels&apos;: {&apos;.&apos;: {}, &apos;f:created-by-dynamic-class-creator&apos;: {}, &apos;f:kubernetes.io/metadata.name&apos;: {}}}}}, {&apos;manager&apos;: &apos;cluster-policy-controller&apos;, &apos;operation&apos;: &apos;Update&apos;, &apos;apiVersion&apos;: &apos;v1&apos;, &apos;time&apos;: &apos;2023-02-27T00:10:27Z&apos;, &apos;fieldsType&apos;: &apos;FieldsV1&apos;, &apos;fieldsV1&apos;: {&apos;f:metadata&apos;: {&apos;f:annotations&apos;: {&apos;.&apos;: {}, &apos;f:openshift.io/sa.scc.mcs&apos;: {}, &apos;f:openshift.io/sa.scc.supplemental-groups&apos;: {}, &apos;f:openshift.io/sa.scc.uid-range&apos;: {}}, &apos;f:labels&apos;: {&apos;f:pod-security.kubernetes.io/audit&apos;: {}, &apos;f:pod-security.kubernetes.io/audit-version&apos;: {}, &apos;f:pod-security.kubernetes.io/warn&apos;: {}, &apos;f:pod-security.kubernetes.io/warn-version&apos;: {}}}}}]}, &apos;spec&apos;: {&apos;finalizers&apos;: [&apos;kubernetes&apos;]}, &apos;status&apos;: {&apos;phase&apos;: &apos;Active&apos;}}
+2023-02-27T02:10:59.179790 ocp_resources Namespace <font color="#26A269">INFO</font> Wait until Namespace webserver-oriharan is deleted
+2023-02-27T02:10:59.180117 ocp_resources.utils <font color="#26A269">INFO</font> Waiting for 240 seconds, retry every 1 seconds. (Function: ocp_resources.resource.client_wait_deleted.lambda: self.exists)
+2023-02-27T02:11:05.209465 ocp_resources.utils <font color="#26A269">INFO</font> Elapsed time: 6.026731491088867
+2023-02-27T02:11:05.209834 ocp_resources Route <font color="#26A269">INFO</font> Delete Route nginx-route
+2023-02-27T02:11:05.219251 ocp_resources Service <font color="#26A269">INFO</font> Delete Service nginx
+2023-02-27T02:11:05.224674 conftest <font color="#26A269">INFO</font>
+Finished, cleaning up resources:
+
+
+_______________________________________________ 7 of 7 completed, 7 Pass, 0 Fail, 0 Skip, 0 XPass, 0 XFail, 0 Error, 0 ReRun ________________________________________________
+------------------------------------------ 12 deselected, 7 passed, 0 skipped, 0 failed, 0 error, 0 xfail, 0 xpass, exit status 0  ------------------------------------------
+
+<font color="#A2734C">============================================================================= warnings summary ==============================================================================</font>
+tests/nginx_pod/test_nginx.py::test_core_v1_api_get_request[tests/nginx_pod]
+tests/nginx_pod/test_nginx.py::test_core_v1_api_get_request[tests/nginx_pod]
+tests/nginx_pod/test_nginx.py::test_core_v1_api_get_request[tests/nginx_pod]
+tests/nginx_pod/test_nginx.py::test_core_v1_api_get_request[tests/nginx_pod]
+tests/nginx_pod/test_nginx.py::test_core_v1_api_get_request[tests/nginx_pod]
+tests/nginx_pod/test_nginx.py::test_core_v1_api_get_request[tests/nginx_pod]
+  /home/oriharan/.cache/pypoetry/virtualenvs/managed-services-integration-tests-9MgpVmNu-py3.10/lib/python3.10/site-packages/kubernetes/client/exceptions.py:91: DeprecationWarning: HTTPResponse.getheaders() is deprecated and will be removed in urllib3 v2.1.0. Instead access HTTPResponse.headers directly.
+    self.headers = http_resp.getheaders()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+----------------------------------------------------------- generated xml file: /home/oriharan/xunit_results.xml ------------------------------------------------------------
+<font color="#A2734C">=============================================================== </font><font color="#26A269">7 passed</font>, <font color="#A2734C"><b>12 deselected</b></font>, <font color="#A2734C"><b>6 warnings</b></font><font color="#A2734C"> in 37.69s ===============================================================</font>
+[oriharan@fedora GITLAB-managed-services-integration-tests]$
+
+</pre>
